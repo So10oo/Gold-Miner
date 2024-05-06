@@ -1,90 +1,91 @@
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Pool
 {
-    IObjectPool<ElementPool> _pool;
+    readonly List<ElementPool> _listReceived;
+
+    readonly List<ElementPool> _listAllElements;
+
+    Func<ElementPool, ElementPool> _create;
+
     ElementPool _objectPool;
 
-    public Pool(ElementPool objectPool)
+    public Pool(ElementPool objectPool, Func<ElementPool, ElementPool> create = null)
     {
+        if (create == null)
+            _create = GameObject.Instantiate;
+        else
+            _create = create;
+
         _objectPool = objectPool;
-        _pool = new ObjectPool<ElementPool>(Create, OnGet, OnRelease, OnDestroy, true);
+        _listReceived = new List<ElementPool>();
+        _listAllElements = new List<ElementPool>();
     }
 
-    public ElementPool Instantiate()//get
+    public ElementPool Get()
     {
-        var elem = _pool.Get();
-        elem.inPool = false;
-        return elem;
+        ElementPool val;
+        if (_listReceived.Count == 0)
+        {
+            val = Create();
+        }
+        else
+        {
+            int index = _listReceived.Count - 1;
+            val = _listReceived[index];
+            _listReceived.RemoveAt(index);
+        }
+        val.gameObject.SetActive(true);
+        return val;
     }
 
-    public ElementPool Instantiate(Vector3 position)
+    public ElementPool Get(Vector3 position)
     {
-        var elem = Instantiate();
+        var elem = Get();
         elem.gameObject.transform.position = position;
         return elem;
     }
 
-    public ElementPool Instantiate(Vector3 position, Quaternion quaternion)
+    public ElementPool Get(Vector3 position, Quaternion quaternion)
     {
-        var elem = Instantiate(position);
+        var elem = Get(position);
         elem.gameObject.transform.rotation = quaternion;
         return elem;
     }
 
-    public ElementPool Instantiate(Vector3 position, Quaternion quaternion, Transform parent, bool worldPositionStays = true)
+    public ElementPool Get(Vector3 position, Quaternion quaternion, Transform parent, bool worldPositionStays = true)
     {
-        var elem = Instantiate(position, quaternion);
+        var elem = Get(position, quaternion);
         elem.gameObject.transform.SetParent(parent, worldPositionStays);
         return elem;
     }
 
-    public void Destroy(ElementPool obj)//Release
+    public void Release(ElementPool obj)
     {
-        if (!obj.inPool)
+        if (obj.gameObject.activeSelf)
         {
-            _pool.Release(obj);
-            obj.inPool = true;
+            obj.gameObject.SetActive(false);
+            _listReceived.Add(obj);
         }
-
     }
 
-    List<ElementPool> list = new();
-    public void DestroyAll()
+    public void Destroy(ElementPool obj)
     {
-        list.ForEach(obj =>
-        {
-            if (obj.gameObject.activeSelf)
-            {
-                _pool.Release(obj);
-            }
-        });
+        GameObject.Destroy(obj.gameObject);
     }
 
-
-
-    void OnRelease(ElementPool obj)
+    public void ReleaseAll()
     {
-        obj.gameObject.SetActive(false);
-    }
-
-    void OnGet(ElementPool obj)
-    {
-        obj.gameObject.SetActive(true);
-    }
-
-    void OnDestroy(ElementPool obj)
-    {
-        //GameObject.Destroy(obj.gameObject);
+        _listAllElements.ForEach(x => Release(x));
     }
 
     ElementPool Create()
     {
-        var item = GameObject.Instantiate(_objectPool);
+        var item = _create.Invoke(_objectPool);
         item.Init(this);
-        list.Add(item);
+        _listAllElements.Add(item);
         return item;
     }
 

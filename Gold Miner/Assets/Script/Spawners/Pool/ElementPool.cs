@@ -9,11 +9,9 @@ public abstract class ElementPool : MonoBehaviour
         _pool = p;
     }
 
-    public bool inPool;
-
     public void Destroy()
     {
-        _pool?.Destroy(this);
+        _pool?.Release(this);
     }
 
 }

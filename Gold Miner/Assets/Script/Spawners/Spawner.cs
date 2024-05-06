@@ -1,16 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] SpawnSettings _settings;
 
-    Pool pool;
+    Pool pool = null;
     float StartSpawnX;
     float EndSpawnX;
     float SpawnY;
 
-    Vector2 RandomSpawnPosition => new Vector2(Random.Range(StartSpawnX, EndSpawnX), SpawnY);
+    Vector2 RandomSpawnPosition => new(Random.Range(StartSpawnX, EndSpawnX), SpawnY);
+
+    [Inject]
+    void Construct(IFactoryPool factory, ProgressGame progressGame)
+    {
+        pool = new(_settings.prefab, factory.Create);
+        progressGame.OnStartGameAction += StartSpawn;
+        progressGame.OnEndGameAction += StopSpawn;
+    }
 
     private void Awake()
     {
@@ -18,30 +27,45 @@ public class Spawner : MonoBehaviour
         StartSpawnX = -ScreenSize.width / 2 + x;
         EndSpawnX = ScreenSize.width / 2 - x;
         SpawnY = (Camera.main.orthographicSize + 1);
-        pool = new(_settings.prefab);
+        //pool = new(_settings.prefab);
     }
 
     IEnumerator SpawnProgress()
     {
         while (true)
         {
-            WaitForSeconds time = new WaitForSeconds(Random.Range(_settings.minSpawnTime, _settings.maxSpawnTime));
+            WaitForSeconds time = new(Random.Range(_settings.minSpawnTime, _settings.maxSpawnTime));
             yield return time;
-            var fall = pool.Instantiate(RandomSpawnPosition);
+            var fall = pool.Get(RandomSpawnPosition);
             (fall as GameElement).speed = Random.Range(_settings.minSpeed, _settings.maxSpeed);
         }
     }
 
-    Coroutine progress;
-    public void StartSpawn()
+    Coroutine _progress;
+    Coroutine Progress
     {
-        progress = StartCoroutine(SpawnProgress());
+        get
+        {
+            return _progress;
+        }
+        set
+        {
+            if (_progress != null)
+                StopCoroutine(_progress);
+
+            _progress = value;
+        }
     }
 
-    public void StopSpawn()
+    void StartSpawn()
     {
-        StopCoroutine(progress);
-        pool.DestroyAll();
+        Progress = StartCoroutine(SpawnProgress());
+    }
+
+    void StopSpawn()
+    {
+        StopCoroutine(Progress);
+        pool.ReleaseAll();
     }
 
 }

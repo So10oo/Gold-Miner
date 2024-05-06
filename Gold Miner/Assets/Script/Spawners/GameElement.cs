@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 
 public class GameElement : ElementPool
@@ -6,6 +7,14 @@ public class GameElement : ElementPool
     [SerializeField] AudioClip _audioClip;
 
     [HideInInspector] public float speed;
+
+    SoundPlayer soundPlayer;
+
+    [Inject]
+    void Construct(SoundPlayer soundPlayer)
+    {
+        this.soundPlayer = soundPlayer;
+    }
 
     private void Update()
     {
@@ -16,12 +25,7 @@ public class GameElement : ElementPool
 
     protected void PlayAudioClip()
     {
-        var audioSource = Camera.main.gameObject.GetComponent<AudioSource>();
-        //if (!audioSource.isPlaying)
-        //{
-            audioSource.clip = _audioClip;
-            audioSource.Play();
-       // }
+        soundPlayer.Play(_audioClip);
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Coin : GameElement
 {
@@ -9,10 +10,15 @@ public class Coin : GameElement
         {
             wallet.AddCoin();
             PlayAudioClip();
+
         }
         this.Destroy();
     }
 
-
+    void test()
+    {
+        var m = new List<Coin>();
+        m.Contains(new Coin());
+    }
 }
 

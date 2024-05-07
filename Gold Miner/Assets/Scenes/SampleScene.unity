@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &62528333
 Transform:
   m_ObjectHideFlags: 0
@@ -2406,7 +2406,7 @@ PrefabInstance:
     - target: {fileID: 3663816164143137705, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: _wallet
       value: 
-      objectReference: {fileID: 2107793832}
+      objectReference: {fileID: 2107793836}
     - target: {fileID: 5772080523723419551, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: m_fontSize
       value: 57
@@ -3421,7 +3421,7 @@ PrefabInstance:
     - target: {fileID: 3663816164143137705, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: _wallet
       value: 
-      objectReference: {fileID: 2107793832}
+      objectReference: {fileID: 2107793836}
     - target: {fileID: 5772080523723419551, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: m_fontSize
       value: 57
@@ -5219,6 +5219,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021164922}
   m_CullTransparentMesh: 1
+--- !u!1 &2047125560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047125561}
+  m_Layer: 6
+  m_Name: Wallet
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2047125561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047125560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.317, y: -0.416, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2107793829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2107793828
 GameObject:
   m_ObjectHideFlags: 0
@@ -5229,11 +5260,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2107793829}
   - component: {fileID: 2107793831}
-  - component: {fileID: 2107793832}
   - component: {fileID: 2107793834}
   - component: {fileID: 2107793833}
   - component: {fileID: 2107793830}
   - component: {fileID: 2107793835}
+  - component: {fileID: 2107793836}
   m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
@@ -5254,6 +5285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2047125561}
   - {fileID: 406302800}
   m_Father: {fileID: 62528333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5315,18 +5347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
---- !u!114 &2107793832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107793828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b965a340849eb14e88baab59654ab01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &2107793833
 Rigidbody2D:
   serializedVersion: 4
@@ -5396,6 +5416,19 @@ MonoBehaviour:
   _defaultSkin: {fileID: 1731493876, guid: 7b13d771e0a85e949b3a064ce5124a0a, type: 3}
   _goldSkin: {fileID: 1578778257, guid: 7b13d771e0a85e949b3a064ce5124a0a, type: 3}
   _skin: {fileID: 406302801}
+--- !u!114 &2107793836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107793828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b965a340849eb14e88baab59654ab01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walletTransform: {fileID: 2047125561}
 --- !u!1001 &949609627308669623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5423,7 +5456,7 @@ PrefabInstance:
     - target: {fileID: 3663816164143137705, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: _wallet
       value: 
-      objectReference: {fileID: 2107793832}
+      objectReference: {fileID: 2107793836}
     - target: {fileID: 5772080523723419551, guid: 6908ea9f6ff618c45853d23dae4c2d8a, type: 3}
       propertyPath: m_text
       value: 5

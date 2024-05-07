@@ -2,8 +2,12 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class Wallet : MonoBehaviour, ISaveLoad
+public class Wallet : MonoBehaviour
 {
+    [SerializeField] Transform _walletTransform;
+
+    public Transform walletTransform =>_walletTransform;
+
     public Action<int> OnCoinsValueChange;
 
     private int _coins = 0;
@@ -30,13 +34,4 @@ public class Wallet : MonoBehaviour, ISaveLoad
 
     public void ResetCoins() => Coins = 0;
 
-    public void Load()
-    {
-        Debug.Log("Load");
-    }
-
-    public void Save()
-    {
-        Debug.Log("Save");
-    }
 }

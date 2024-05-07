@@ -8,9 +8,9 @@ public class Pool
 
     readonly List<ElementPool> _listAllElements;
 
-    Func<ElementPool, ElementPool> _create;
+    readonly Func<ElementPool, ElementPool> _create;
 
-    ElementPool _objectPool;
+    readonly ElementPool _objectPool;
 
     public Pool(ElementPool objectPool, Func<ElementPool, ElementPool> create = null)
     {

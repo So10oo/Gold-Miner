@@ -14,7 +14,7 @@ public class Bomb : GameElement
             Destroy(explosion, 0.5f);
         }
         else
-            this.Destroy();
+            this.Release();
     }
  
 }

@@ -9,9 +9,30 @@ public abstract class ElementPool : MonoBehaviour
         _pool = p;
     }
 
-    public void Destroy()
+    public void Release()
     {
         _pool?.Release(this);
+    }
+
+
+    private void OnEnable()
+    {
+        OnGetInPool();
+    }
+
+    private void OnDisable()
+    {
+        OnReleaseInPool();
+    }
+
+    protected virtual void OnGetInPool()
+    {
+
+    }
+
+    protected virtual void OnReleaseInPool()
+    {
+
     }
 
 }

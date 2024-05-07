@@ -10,6 +10,8 @@ public class GameElement : ElementPool
 
     SoundPlayer soundPlayer;
 
+    protected bool canMove = true;
+
     [Inject]
     void Construct(SoundPlayer soundPlayer)
     {
@@ -18,6 +20,9 @@ public class GameElement : ElementPool
 
     private void Update()
     {
+        if (!canMove)
+            return;
+
         var pos = transform.position;
         pos.y -= speed * Time.deltaTime;
         transform.position = pos;

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SpawnBombSettings
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4699475055044561620, guid: 8acb2de7ce2621a4faa82687c5d325c6, type: 3}
-  _minSpawnTime: 0.44
-  _maxSpawnTime: 3
-  _minSpeed: 3.08
-  _maxSpeed: 6.73
+  spawnTime:
+    min: 0.8
+    max: 1.5
+  speed:
+    min: 4
+    max: 7

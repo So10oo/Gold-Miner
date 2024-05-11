@@ -2,7 +2,7 @@
 using Zenject;
 
 
-public class GameElement : ElementPool
+public class FallElement : ElementPool
 {
     [SerializeField] AudioClip _audioClip;
 

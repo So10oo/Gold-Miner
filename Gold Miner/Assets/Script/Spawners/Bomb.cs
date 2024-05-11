@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bomb : GameElement
+public class Bomb : FallElement
 {
     [SerializeField] GameObject _explosion;
 

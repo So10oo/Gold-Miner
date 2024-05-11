@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-public class Coin : GameElement
+public class Coin : FallElement
 {
 
     Collider2D _collider;

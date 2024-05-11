@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SpawnCoinSettings
   m_EditorClassIdentifier: 
   _prefab: {fileID: -1046138224882449554, guid: 826ac54df3cb4734ab134c3d27a7e67f, type: 3}
-  _minSpawnTime: 0.227
-  _maxSpawnTime: 2.14
-  _minSpeed: 3.1
-  _maxSpeed: 5.1
+  spawnTime:
+    min: 0.2
+    max: 0.8
+  speed:
+    min: 3
+    max: 6

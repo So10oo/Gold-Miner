@@ -1,26 +1,28 @@
 using UnityEngine;
+using YG;
 
-public class AudioSwitch : MonoBehaviour
+public abstract class AudioSwitch : MonoBehaviour
 {
-    [SerializeField] AudioSource _audioSource;
-    [SerializeField] CheckBoxView _checkBoxView;
+    [SerializeField] protected AudioSource _audioSource;
+    [SerializeField] protected CheckBoxView _checkBoxView;
 
-    bool _mute;
-    public bool Mute
+    public abstract bool Mute
     {
-        get { return _mute; }
-        set
-        {
-            _mute = value;
-            PlayerPrefs.SetString(gameObject.name, _mute.ToString());
-            _checkBoxView.ViewData(_mute);
-            _audioSource.mute = !_mute;
-        }
+        get;
+        set;
     }
+
+    // Подписываемся на событие GetDataEvent в OnEnable
+    private void OnEnable() => YandexGame.GetDataEvent += Load;
+    // Отписываемся от события GetDataEvent в OnDisable
+    private void OnDisable() => YandexGame.GetDataEvent -= Load;
+
 
     public void Start()
     {
-        Mute = bool.Parse(PlayerPrefs.GetString(gameObject.name, true.ToString()));
+        if (YandexGame.SDKEnabled)
+            Load();
+
         if (_audioSource.clip != null)
             _audioSource.Play();
     }
@@ -29,4 +31,7 @@ public class AudioSwitch : MonoBehaviour
     {
         Mute = !Mute;
     }
+
+    protected abstract void Load();
+
 }

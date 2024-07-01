@@ -13,11 +13,11 @@ public class CheckBoxView : View<bool>
     {
         if (data)
         {
-            _image.sprite = On;
+            _image.sprite = Off;
         }
         else
         {
-            _image.sprite = Off;
+            _image.sprite = On;
         }
     }
 }

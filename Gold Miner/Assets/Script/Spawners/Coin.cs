@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Coin : FallElement
 {
-
     Collider2D _collider;
     private void Awake()
     {
@@ -27,18 +26,11 @@ public class Coin : FallElement
     {
         _collider.enabled = false;
         canMove = false;
-        //gameObject.transform.parent = target.parent;
-        gameObject.transform.SetParent(target.parent, true);
 
+        gameObject.transform.SetParent(target.parent, true);
         float time = 0.5f;
         transform.DOLocalJump(target.localPosition, 1, 1, time).OnComplete(Release);
         transform.DOScale(0.5f, time);
-       
-        //DOTween.To(() => transform.position, x => transform.position = x,) ;
-        //DOTween.To(() => myVector, x => myVector = x, new Vector3(3, 4, 8), 1);
-        //DOTween.Sequence()
-        //    .Append(transform.DOJump(target.position,1,1,0.5f))
-        //    .Append()
     }
 
     protected override void OnGetInPool()

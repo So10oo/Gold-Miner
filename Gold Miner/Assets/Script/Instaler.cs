@@ -9,17 +9,17 @@ public class Instaler : MonoInstaller
     [Header("ProgressGame")]
     [SerializeField] ProgressGame _progressGame;
 
-    [Header("PageStateMachine")]
-    [SerializeField] PageStateMachine _pageStateMachine;
+
+    [Header("Wallet")]
+    [SerializeField] HealthPoints _hp;
+    
 
     public override void InstallBindings()
     {
         Container.Bind<IFactoryPool>().To<FactoryPool>().FromInstance(new FactoryPool(Container)).AsSingle();
 
         Container.Bind<ProgressGame>().FromInstance(_progressGame).AsSingle();
-
-        Container.Bind<PageStateMachine>().FromInstance(_pageStateMachine).AsSingle();
-
+        Container.Bind<HealthPoints>().FromInstance(_hp).AsSingle();
         Container.Bind<SoundPlayer>().FromInstance(_soundPlayer).AsSingle();
 
         //Character hero = Container.InstantiatePrefabForComponent<Character>(HeroPrefab, StartPoint.position, Quaternion.identity, null);

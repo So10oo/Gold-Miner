@@ -9,5 +9,4 @@ public class SoundPlayer : MonoBehaviour
         _audioSource.clip = clip;
         _audioSource.Play();
     }
-
 }

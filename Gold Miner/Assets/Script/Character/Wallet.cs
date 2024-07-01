@@ -9,6 +9,7 @@ public class Wallet : MonoBehaviour
     public Transform walletTransform =>_walletTransform;
 
     public Action<int> OnCoinsValueChange;
+    public Action<int> OnResetCoins;
 
     private int _coins = 0;
     public int Coins 
@@ -32,6 +33,10 @@ public class Wallet : MonoBehaviour
 
     public void AddCoin() => Coins++;
 
-    public void ResetCoins() => Coins = 0;
+    public void ResetCoins()
+    {
+        OnResetCoins?.Invoke(Coins);
+        Coins = 0;
+    } 
 
 }

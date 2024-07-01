@@ -1,0 +1,2 @@
+Build path: E:/GitHub/Gold-Miner/Gold Miner/testBild
+Build number: 10

@@ -15,7 +15,6 @@ public class Mover : MonoBehaviour
          
     }
 
-
     private void OnMouseDrag()
     {
         var current = transform.position;

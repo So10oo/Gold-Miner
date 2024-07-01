@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Window : MonoBehaviour  
 {
-    public Action OnOpen;
-    public Action OnClose;
+    public UnityEvent OnOpen;
+    public UnityEvent OnClose;
 
     public void Open()
     {
